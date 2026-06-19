@@ -307,6 +307,67 @@ function handleKeyDown(event) {
     }
 }
 
+// Touch Controls (Swipe)
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+}, { passive: false });
+
+document.addEventListener('touchmove', e => {
+    // Prevent default scrolling on mobile while playing
+    if (isPlaying && e.cancelable) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+document.addEventListener('touchend', e => {
+    if (!isPlaying) return;
+    
+    let touchEndX = e.changedTouches[0].screenX;
+    let touchEndY = e.changedTouches[0].screenY;
+    
+    let diffX = touchEndX - touchStartX;
+    let diffY = touchEndY - touchStartY;
+    
+    // Threshold to ignore simple taps
+    if (Math.abs(diffX) < 30 && Math.abs(diffY) < 30) return;
+
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        // Horizontal swipe
+        if (diffX > 0) {
+            // Swipe Right
+            if (currentLane < 2) currentLane++;
+        } else {
+            // Swipe Left
+            if (currentLane > 0) currentLane--;
+        }
+    } else {
+        // Vertical swipe
+        if (diffY < 0) {
+            // Swipe Up
+            if (!isJumping && !isSliding) {
+                isJumping = true;
+                jumpVelocity = 0.4;
+            }
+        } else {
+            // Swipe Down
+            if (!isJumping && !isSliding) {
+                isSliding = true;
+                player.scale.y = 0.5;
+                player.position.y = playerY;
+                setTimeout(() => {
+                    isSliding = false;
+                    player.scale.y = 1;
+                    player.position.y = playerY;
+                }, 800);
+            }
+        }
+    }
+}, { passive: false });
+
 function updatePlayer() {
     player.position.x += (lanes[currentLane] - player.position.x) * 0.1;
 
