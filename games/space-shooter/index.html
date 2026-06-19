@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্পেস শুটার</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <a href="../../index.html" class="back-btn">⬅ প্লাটফর্মে ফেরত যান</a>
+        <h1>স্পেস শুটার 🚀</h1>
+        <div class="score-board">স্কোর: <span id="score">0</span></div>
+    </header>
+
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div id="game-over" class="hidden">
+            <h2>গেম ওভার!</h2>
+            <p>আপনার স্কোর: <span id="final-score">0</span></p>
+            <button id="restart-btn">আবার খেলুন</button>
+        </div>
+        <div id="start-screen">
+            <h2>এলিয়েনদের ধ্বংস করুন!</h2>
+            <p>ডানে-বামে সরাতে 'অ্যারো-কি' এবং গুলি করতে 'স্পেসবার' চাপুন।</p>
+            <button id="start-btn">খেলা শুরু করুন</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

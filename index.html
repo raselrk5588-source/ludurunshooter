@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>খেলাঘর - গেম প্লাটফর্ম</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="hub-style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">খেলাঘর 🎮</div>
+    </nav>
+    
+    <header class="hero">
+        <h1>আপনার প্রিয় গেমগুলো এক জায়গায়</h1>
+        <p>ব্রাউজারেই খেলুন দারুণ সব থ্রিডি এবং টুডি গেম, কোনো ডাউনলোডের ঝামেলা ছাড়াই!</p>
+    </header>
+
+    <main class="games-container">
+        <!-- Game Card 1 -->
+        <a href="games/village-runner/index.html" class="game-card">
+            <div class="game-thumbnail">
+                <iframe src="games/village-runner/thumbnail.html" width="100%" height="100%" style="border:none; pointer-events:none; overflow:hidden;"></iframe>
+                <div class="play-icon">
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="game-info">
+                <h3>গ্রামের দৌড় 3D</h3>
+                <p>একটি দারুণ থ্রিডি এন্ডলেস রানার গেম যেখানে একটি কিউট বিড়াল গ্রামের রাস্তায় দৌড়ায়।</p>
+            </div>
+        </a>
+
+        <!-- Game Card 2 -->
+        <a href="games/ludo-master/index.html" class="game-card">
+            <div class="game-thumbnail" style="background-color: #ffeb3b; display:flex; justify-content:center; align-items:center;">
+                <div class="dice-icon">🎲</div>
+                <div class="play-icon">
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="game-info">
+                <h3>লুডু মাস্টার</h3>
+                <p>বন্ধুদের সাথে লোকাল মাল্টিপ্লেয়ারে লুডু খেলার মজা।</p>
+            </div>
+        </a>
+
+        <!-- Game Card 3 -->
+        <a href="games/space-shooter/index.html" class="game-card">
+            <div class="game-thumbnail" style="background-color: #2c3e50; display:flex; justify-content:center; align-items:center;">
+                <div class="rocket-icon">🚀</div>
+                <div class="play-icon">
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="game-info">
+                <h3>স্পেস শুটার</h3>
+                <p>মহাকাশে এলিয়েনদের সাথে যুদ্ধ।</p>
+            </div>
+        </a>
+    </main>
+</body>
+</html>

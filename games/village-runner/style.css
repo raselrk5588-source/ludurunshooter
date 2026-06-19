@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Hind Siliguri', 'Outfit', sans-serif;
+    background-color: #050505;
+}
+
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+#game-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#hud {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 10;
+}
+
+.score-board {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px 30px;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel {
+    background: rgba(20, 20, 25, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    pointer-events: auto;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.glass-panel h1 {
+    font-size: 64px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #4caf50, #8bc34a, #4caf50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+    line-height: 1.1;
+}
+
+.glass-panel p {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #aaa;
+    max-width: 400px;
+}
+
+button {
+    background: linear-gradient(90deg, #4caf50 0%, #8bc34a 100%);
+    border: none;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Hind Siliguri', 'Outfit', sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+}
+
+button:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 10px 30px rgba(76, 175, 80, 0.6);
+}
+
+button:active {
+    transform: scale(0.95);
+}

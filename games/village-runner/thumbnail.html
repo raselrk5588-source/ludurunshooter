@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html { margin: 0; padding: 0; overflow: hidden; background-color: #87CEEB; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Mini scene with just the cat running
+        let scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x87CEEB);
+        let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(2, 2, 5); // Angle to see the cat
+        camera.lookAt(0, 0.5, 0);
+
+        let renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        let ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        let sunLight = new THREE.DirectionalLight(0xffffee, 1.0);
+        sunLight.position.set(-10, 20, 10);
+        scene.add(sunLight);
+
+        // Ground
+        let roadGeo = new THREE.PlaneGeometry(40, 40);
+        let roadMat = new THREE.MeshLambertMaterial({ color: 0x8b5a2b });
+        let road = new THREE.Mesh(roadGeo, roadMat);
+        road.rotation.x = -Math.PI / 2;
+        scene.add(road);
+
+        // Player (Cat)
+        let player = new THREE.Group();
+        const catColor = 0xff8c00;
+        const bodyGeo = new THREE.BoxGeometry(0.8, 0.6, 1.2);
+        const bodyMat = new THREE.MeshLambertMaterial({ color: catColor });
+        const body = new THREE.Mesh(bodyGeo, bodyMat);
+        body.position.y = 0.6;
+        player.add(body);
+
+        const headGeo = new THREE.BoxGeometry(0.7, 0.6, 0.7);
+        const head = new THREE.Mesh(headGeo, bodyMat);
+        head.position.set(0, 0.9, -0.7);
+        player.add(head);
+
+        const earGeo = new THREE.ConeGeometry(0.15, 0.3, 4);
+        const leftEar = new THREE.Mesh(earGeo, bodyMat);
+        leftEar.position.set(-0.25, 1.3, -0.7);
+        leftEar.rotation.y = Math.PI / 4;
+        player.add(leftEar);
+        const rightEar = new THREE.Mesh(earGeo, bodyMat);
+        rightEar.position.set(0.25, 1.3, -0.7);
+        rightEar.rotation.y = Math.PI / 4;
+        player.add(rightEar);
+        
+        // Eyes
+        const eyeGeo = new THREE.BoxGeometry(0.1, 0.1, 0.1);
+        const eyeMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+        const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+        leftEye.position.set(-0.2, 1.0, -1.05);
+        player.add(leftEye);
+        const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+        rightEye.position.set(0.2, 1.0, -1.05);
+        player.add(rightEye);
+
+        // Nose
+        const noseGeo = new THREE.BoxGeometry(0.1, 0.05, 0.1);
+        const noseMat = new THREE.MeshBasicMaterial({ color: 0xff69b4 });
+        const nose = new THREE.Mesh(noseGeo, noseMat);
+        nose.position.set(0, 0.85, -1.06);
+        player.add(nose);
+
+        const tailGeo = new THREE.BoxGeometry(0.1, 0.8, 0.1);
+        const tail = new THREE.Mesh(tailGeo, bodyMat);
+        tail.position.set(0, 0.9, 0.6);
+        tail.rotation.x = Math.PI / 4;
+        player.add(tail);
+
+        const legGeo = new THREE.BoxGeometry(0.2, 0.4, 0.2);
+        const fLL = new THREE.Mesh(legGeo, bodyMat); fLL.position.set(-0.25, 0.2, -0.4); player.add(fLL);
+        const fRL = new THREE.Mesh(legGeo, bodyMat); fRL.position.set(0.25, 0.2, -0.4); player.add(fRL);
+        const bLL = new THREE.Mesh(legGeo, bodyMat); bLL.position.set(-0.25, 0.2, 0.4); player.add(bLL);
+        const bRL = new THREE.Mesh(legGeo, bodyMat); bRL.position.set(0.25, 0.2, 0.4); player.add(bRL);
+
+        let legs = [fLL, fRL, bLL, bRL];
+        scene.add(player);
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = Date.now() * 0.015;
+            player.position.y = Math.abs(Math.sin(time)) * 0.15;
+            legs[0].rotation.x = Math.sin(time) * 0.6;
+            legs[1].rotation.x = Math.sin(time + Math.PI) * 0.6;
+            legs[2].rotation.x = Math.sin(time + Math.PI) * 0.6;
+            legs[3].rotation.x = Math.sin(time) * 0.6;
+            tail.rotation.x = Math.PI / 4 + Math.sin(time * 0.5) * 0.2;
+            
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>

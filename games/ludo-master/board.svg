@@ -1,0 +1,84 @@
+<svg width="750" height="750" viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <polygon id="star" points="25,5 31,18 45,20 35,30 38,45 25,37 12,45 15,30 5,20 19,18" fill="none" stroke="black" stroke-width="2"/>
+    <g id="circles">
+      <circle cx="100" cy="100" r="25" fill="inherit" stroke="black" stroke-width="2"/>
+      <circle cx="100" cy="100" r="15" fill="white" stroke="black" stroke-width="1"/>
+      <circle cx="200" cy="100" r="25" fill="inherit" stroke="black" stroke-width="2"/>
+      <circle cx="200" cy="100" r="15" fill="white" stroke="black" stroke-width="1"/>
+      <circle cx="100" cy="200" r="25" fill="inherit" stroke="black" stroke-width="2"/>
+      <circle cx="100" cy="200" r="15" fill="white" stroke="black" stroke-width="1"/>
+      <circle cx="200" cy="200" r="25" fill="inherit" stroke="black" stroke-width="2"/>
+      <circle cx="200" cy="200" r="15" fill="white" stroke="black" stroke-width="1"/>
+    </g>
+  </defs>
+
+  <rect width="750" height="750" fill="white" rx="30" ry="30" />
+
+  <!-- Bases -->
+  <rect x="0" y="0" width="300" height="300" fill="#30a241" rx="30" /> <!-- Green -->
+  <rect x="450" y="0" width="300" height="300" fill="#fbd109" rx="30" /> <!-- Yellow -->
+  <rect x="0" y="450" width="300" height="300" fill="#e82121" rx="30" /> <!-- Red -->
+  <rect x="450" y="450" width="300" height="300" fill="#2c51b6" rx="30" /> <!-- Blue -->
+
+  <!-- Inner White Boxes -->
+  <rect x="50" y="50" width="200" height="200" fill="white" stroke="black" stroke-width="4"/>
+  <rect x="500" y="50" width="200" height="200" fill="white" stroke="black" stroke-width="4"/>
+  <rect x="50" y="500" width="200" height="200" fill="white" stroke="black" stroke-width="4"/>
+  <rect x="500" y="500" width="200" height="200" fill="white" stroke="black" stroke-width="4"/>
+
+  <!-- Base Circles -->
+  <use href="#circles" x="0" y="0" fill="#30a241" />
+  <use href="#circles" x="450" y="0" fill="#fbd109" />
+  <use href="#circles" x="0" y="450" fill="#e82121" />
+  <use href="#circles" x="450" y="450" fill="#2c51b6" />
+
+  <!-- Colored Paths -->
+  <!-- Green Path -->
+  <rect x="50" y="350" width="250" height="50" fill="#30a241" />
+  <rect x="50" y="300" width="50" height="50" fill="#30a241" />
+  
+  <!-- Yellow Path -->
+  <rect x="350" y="50" width="50" height="250" fill="#fbd109" />
+  <rect x="400" y="50" width="50" height="50" fill="#fbd109" />
+
+  <!-- Blue Path -->
+  <rect x="450" y="350" width="250" height="50" fill="#2c51b6" />
+  <rect x="650" y="400" width="50" height="50" fill="#2c51b6" />
+
+  <!-- Red Path -->
+  <rect x="350" y="450" width="50" height="250" fill="#e82121" />
+  <rect x="300" y="650" width="50" height="50" fill="#e82121" />
+
+  <!-- Safe zones (Stars) -->
+  <!-- Left arm -->
+  <use href="#star" x="100" y="400" />
+  <!-- Top arm -->
+  <use href="#star" x="300" y="100" />
+  <!-- Right arm -->
+  <use href="#star" x="600" y="300" />
+  <!-- Bottom arm -->
+  <use href="#star" x="400" y="600" />
+
+  <!-- Grid Lines -->
+  <!-- Vertical -->
+  <path d="M 300 0 v 750 M 350 0 v 750 M 400 0 v 750 M 450 0 v 750" stroke="black" stroke-width="2"/>
+  <!-- Horizontal -->
+  <path d="M 0 300 h 750 M 0 350 h 750 M 0 400 h 750 M 0 450 h 750" stroke="black" stroke-width="2"/>
+  
+  <!-- Cross vertical lines -->
+  <path d="M 50 300 v 150 M 100 300 v 150 M 150 300 v 150 M 200 300 v 150 M 250 300 v 150" stroke="black" stroke-width="2"/>
+  <path d="M 500 300 v 150 M 550 300 v 150 M 600 300 v 150 M 650 300 v 150 M 700 300 v 150" stroke="black" stroke-width="2"/>
+  
+  <!-- Cross horizontal lines -->
+  <path d="M 300 50 h 150 M 300 100 h 150 M 300 150 h 150 M 300 200 h 150 M 300 250 h 150" stroke="black" stroke-width="2"/>
+  <path d="M 300 500 h 150 M 300 550 h 150 M 300 600 h 150 M 300 650 h 150 M 300 700 h 150" stroke="black" stroke-width="2"/>
+
+  <!-- Center Triangles -->
+  <polygon points="300,300 450,300 375,375" fill="#fbd109" stroke="black" stroke-width="2"/>
+  <polygon points="450,300 450,450 375,375" fill="#2c51b6" stroke="black" stroke-width="2"/>
+  <polygon points="300,450 450,450 375,375" fill="#e82121" stroke="black" stroke-width="2"/>
+  <polygon points="300,300 300,450 375,375" fill="#30a241" stroke="black" stroke-width="2"/>
+
+  <rect x="0" y="0" width="750" height="750" fill="none" stroke="black" stroke-width="6" rx="30" />
+</svg>

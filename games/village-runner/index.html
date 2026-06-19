@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>গ্রামের দৌড় 3D</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        
+        <!-- UI Layer -->
+        <div id="ui-layer">
+            <div id="hud" class="hidden">
+                <div class="score-board">স্কোর: <span id="score-val">0</span></div>
+            </div>
+
+            <div id="start-menu" class="glass-panel">
+                <h1>গ্রামের<br>দৌড়</h1>
+                <p>ডানে-বামে যেতে, লাফ দিতে এবং নিচে স্লাইড করতে অ্যারো-কি (Arrow Keys) ব্যবহার করুন।</p>
+                <button id="start-btn">খেলা শুরু করুন</button>
+            </div>
+
+            <div id="game-over-menu" class="glass-panel hidden">
+                <h1>গেম ওভার</h1>
+                <p>চূড়ান্ত স্কোর: <span id="final-score">0</span></p>
+                <button id="restart-btn">আবার খেলুন</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
