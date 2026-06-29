@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>minigame 🎮 | খেলো, জিতো, মজা করো</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Outfit:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef1f8; --bg2:#ffffff; --panel:#ffffff;
+  --line:rgba(26,21,48,.10); --line2:rgba(26,21,48,.06);
+  --ink:#1c1733; --ink2:#3a3556; --mut:#7c7894;
+  --accent:#ff5a4d; --accent2:#10b8a6; --gold:#f5b21a; --purple:#8b5cf6;
+  --glow1:rgba(255,90,77,.16); --glow2:rgba(16,184,166,.16); --glow3:rgba(139,92,246,.12);
+  --card:#fafbff; --card2:#f3f5fc;
+  --shadow:0 18px 50px -24px rgba(28,23,51,.30);
+  --shadow-sm:0 6px 18px -10px rgba(28,23,51,.30);
+  --disp:'Bricolage Grotesque',sans-serif; --body:'Outfit','Hind Siliguri',sans-serif; --bn:'Hind Siliguri','Outfit',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:var(--body);color:var(--ink);padding:20px;
+  background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(circle at 10% 6%, var(--glow1), transparent 38%),
+    radial-gradient(circle at 92% 12%, var(--glow3), transparent 34%),
+    radial-gradient(circle at 86% 94%, var(--glow2), transparent 40%),
+    linear-gradient(170deg,#f4f6fc,#e9edf7)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(28,23,51,.05) 1px, transparent 1px);background-size:22px 22px}
+::selection{background:var(--accent);color:#fff}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shine{0%{transform:translateX(-120%) skewX(-20deg)}60%,100%{transform:translateX(320%) skewX(-20deg)}}
+@keyframes float1{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(0,-12px) rotate(8deg)}}
+@keyframes float2{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(0,10px) rotate(-10deg)}}
+@keyframes float3{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(0,-9px) rotate(6deg)}}
+@keyframes badgePulse{0%,100%{box-shadow:0 10px 22px -8px rgba(255,90,77,.55),inset 0 2px 6px rgba(255,255,255,.5),0 0 0 0 rgba(255,90,77,.30)}50%{box-shadow:0 10px 26px -8px rgba(16,184,166,.55),inset 0 2px 6px rgba(255,255,255,.5),0 0 0 9px rgba(255,90,77,0)}}
+@keyframes barFlow{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes tipIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.wrapper{width:100%;max-width:440px;animation:fadeUp .6s ease both;display:flex;flex-direction:column;gap:14px}
+
+/* banner */
+.banner{background:linear-gradient(140deg,#ffffff 0%,#f7f9ff 60%,#eef2fc 100%);border:1px solid var(--line2);
+  border-radius:24px;padding:30px 28px 24px;text-align:center;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.banner::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,90,77,.16),transparent 70%);filter:blur(4px)}
+.banner::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--accent),var(--gold),var(--accent2),var(--purple),var(--accent));background-size:200% 100%;
+  animation:barFlow 5s linear infinite}
+.banner-glow{position:absolute;bottom:-60px;left:-40px;width:170px;height:170px;border-radius:50%;
+  background:radial-gradient(circle,rgba(16,184,166,.16),transparent 70%);filter:blur(6px);pointer-events:none}
+.banner-shine{position:absolute;top:0;left:0;width:55%;height:100%;pointer-events:none;
+  background:linear-gradient(110deg,transparent,rgba(255,255,255,.55),transparent);animation:shine 5.5s ease-in-out infinite}
+.float-ico{position:absolute;font-size:24px;opacity:.22;pointer-events:none;user-select:none}
+.float-ico.f1{top:14px;left:18px;animation:float1 6s ease-in-out infinite}
+.float-ico.f2{top:18px;right:22px;animation:float2 7s ease-in-out infinite}
+.float-ico.f3{bottom:54px;left:30px;animation:float3 6.5s ease-in-out infinite}
+.float-ico.f4{bottom:48px;right:28px;animation:float1 7.5s ease-in-out infinite}
+
+.logo-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;position:relative}
+.logo-badge{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;animation:badgePulse 3s ease-in-out infinite}
+.brand-title{font-family:var(--disp);font-weight:800;font-size:34px;letter-spacing:-.02em;color:var(--ink);line-height:1}
+.brand-title b{background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand-subtitle{font-size:12px;color:var(--mut);margin-top:5px;letter-spacing:.3px;font-family:var(--bn)}
+.tagline{font-size:13.5px;color:var(--ink2);margin-top:12px;font-family:var(--bn);position:relative;line-height:1.6}
+.pills{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:14px;position:relative}
+.pill{background:var(--card2);border:1px solid var(--line2);border-radius:20px;padding:5px 12px;font-size:11.5px;color:var(--ink2);display:flex;align-items:center;gap:5px;font-family:var(--bn);transition:.2s}
+.pill:hover{background:#fff;border-color:rgba(255,90,77,.35);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.6);flex-shrink:0}
+
+/* card body */
+.card-body{background:var(--bg2);border:1px solid var(--line2);border-radius:24px;padding:24px 24px 22px;box-shadow:var(--shadow)}
+.section-label{font-size:12px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;font-family:var(--bn);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+.input-label{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;display:block;font-family:var(--bn)}
+.phone-input-wrap{display:flex;border:2px solid var(--line);border-radius:13px;overflow:hidden;transition:.25s;background:var(--card)}
+.phone-input-wrap:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px rgba(255,90,77,.14);background:#fff}
+.phone-prefix{background:var(--card2);border-right:1.5px solid var(--line2);padding:0 14px;display:flex;align-items:center;font-size:15px;color:var(--ink);font-weight:700;white-space:nowrap;min-height:52px}
+input[type="tel"]{flex:1;padding:14px 16px;border:none;outline:none;font-size:16px;font-family:var(--body);color:var(--ink);background:transparent;letter-spacing:1px}
+input[type="tel"]::placeholder{color:var(--mut);letter-spacing:0}
+
+.charge-box{background:linear-gradient(135deg,rgba(245,178,26,.10),rgba(255,90,77,.06));border:1px solid rgba(245,178,26,.30);border-radius:13px;padding:13px 14px;margin-top:12px;display:flex;gap:10px;align-items:flex-start}
+.charge-icon{font-size:18px;line-height:1;flex-shrink:0;margin-top:1px}
+.charge-text{font-size:12.5px;color:var(--ink2);line-height:1.65;font-weight:500;font-family:var(--bn)}
+.charge-text strong{color:#c47f00;font-weight:700}
+
+.btn{width:100%;margin-top:20px;padding:16px;border-radius:14px;border:none;color:#fff;
+  font-family:var(--bn);font-size:16px;font-weight:800;cursor:pointer;transition:.2s;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;gap:8px;-webkit-tap-highlight-color:transparent;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 14px 30px -12px rgba(255,90,77,.6)}
+.btn::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(110deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn:hover:not(:disabled)::after{left:150%}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 38px -12px rgba(255,90,77,.7)}
+.btn:active:not(:disabled){transform:scale(.98)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.btn-arrow{font-size:20px;transition:transform .2s}
+.btn:hover:not(:disabled) .btn-arrow{transform:translateX(4px)}
+
+.loader{display:none;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:14px;color:var(--accent2);font-weight:600;font-family:var(--bn)}
+.spinner{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--accent2);border-radius:50%;animation:spin .8s linear infinite}
+
+.footer-note{margin-top:16px;padding-top:16px;border-top:1px solid var(--line2);font-size:12px;color:var(--mut);text-align:center;line-height:1.7;font-family:var(--bn)}
+.footer-note a{color:var(--accent2);text-decoration:none;font-weight:600}
+.footer-note a:hover{text-decoration:underline}
+
+/* live badge */
+.live-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:#16a34a;font-weight:700;font-family:var(--bn)}
+.live-badge .b-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.7);animation:blink 1.4s ease-in-out infinite}
+
+/* feature chips */
+.feat-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:18px 0 16px}
+.feat{background:var(--card);border:1px solid var(--line2);border-radius:13px;padding:12px;font-size:12px;color:var(--ink);font-weight:600;font-family:var(--bn);display:flex;align-items:center;gap:9px;transition:.2s}
+.feat:hover{border-color:rgba(255,90,77,.35);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.feat-ico{font-size:17px;line-height:1;flex-shrink:0}
+
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:20px 0 18px}
+
+/* live game preview cards */
+.previews{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.preview{background:var(--card);border:1px solid var(--line2);border-radius:16px;padding:12px 10px;text-align:center;position:relative;overflow:hidden;transition:.25s;cursor:default}
+.preview::before{content:'';position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--pa),var(--pb))}
+.preview:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--pa) 40%,var(--line2));box-shadow:0 16px 28px -16px var(--pa)}
+.preview.p-ttt{--pa:#ff5a4d;--pb:#10b8a6}
+.preview.p-mem{--pa:#8b5cf6;--pb:#3b82f6}
+.preview.p-snake{--pa:#22c55e;--pb:#f5b21a}
+.pv-stage{height:70px;display:flex;align-items:center;justify-content:center;margin-bottom:9px}
+.pv-name{font-size:11px;font-weight:700;color:var(--ink);font-family:var(--bn)}
+
+/* mini ttt board */
+.mttt{display:grid;grid-template-columns:repeat(3,15px);grid-template-rows:repeat(3,15px);gap:3px}
+.mttt span{border-radius:3px;background:rgba(28,23,51,.06);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:800;font-size:10px}
+.mttt .x{color:var(--pa)}.mttt .o{color:var(--pb)}
+
+/* mini memory board */
+.mmem{display:grid;grid-template-columns:repeat(4,16px);grid-template-rows:repeat(2,20px);gap:4px}
+.mmem .mc{border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;transition:.3s;
+  background:linear-gradient(135deg,var(--pa),var(--pb));transform-style:preserve-3d}
+.mmem .mc.up{background:rgba(28,23,51,.06);border:1px solid var(--line2)}
+
+/* mini snake board */
+.msnake{display:grid;grid-template-columns:repeat(7,8px);grid-template-rows:repeat(5,8px);gap:2px}
+.msnake span{border-radius:2px;background:transparent}
+.msnake .b{background:var(--pb)}.msnake .h{background:var(--pa);box-shadow:0 0 6px var(--pa)}
+.msnake .a{background:var(--gold);border-radius:50%;box-shadow:0 0 6px var(--gold)}
+
+/* rotating tips */
+.tip-bar{background:linear-gradient(135deg,rgba(255,90,77,.07),rgba(16,184,166,.06));border:1px solid var(--line2);
+  border-radius:13px;padding:12px 14px;display:flex;align-items:center;gap:10px;min-height:48px;overflow:hidden}
+.tip-ico{font-size:18px;flex-shrink:0}
+.tip-text{font-size:12.5px;color:var(--ink2);line-height:1.5;font-family:var(--bn);animation:tipIn .5s ease}
+.tip-text strong{color:var(--accent);font-weight:700}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+@media(max-width:420px){
+  body{padding:14px}
+  .banner{padding:24px 20px 18px}
+  .brand-title{font-size:29px}
+  .card-body{padding:22px 18px 20px}
+  .charge-text{font-size:12px}
+  .preview{padding:9px 6px}
+}
+@media(max-width:340px){.logo-badge{width:48px;height:48px;font-size:23px}.brand-title{font-size:25px}}
+@media(max-height:660px){body{align-items:flex-start}}
+</style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- BANNER -->
+    <div class="banner">
+      <div class="banner-glow"></div>
+      <div class="banner-shine"></div>
+      <span class="float-ico f1">❌</span>
+      <span class="float-ico f2">🧠</span>
+      <span class="float-ico f3">🐍</span>
+      <span class="float-ico f4">🎯</span>
+      <div class="logo-row">
+        <div class="logo-badge">🎮</div>
+        <div style="text-align:left">
+          <div class="brand-title">mini<b>game</b></div>
+          <div class="brand-subtitle">খেলো, প্রতিযোগিতা করো, মজা করো</div>
+        </div>
+      </div>
+      <div class="tagline">৩টি ক্লাসিক গেম, স্মুথ এনিমেশন, সাউন্ড আর থিম সহ — সরাসরি ব্রাউজারে খেলো</div>
+      <div class="pills">
+        <div class="pill"><div class="pill-dot"></div>Tic Tac Toe</div>
+        <div class="pill"><div class="pill-dot"></div>Memory Match</div>
+        <div class="pill"><div class="pill-dot"></div>Snake</div>
+        <div class="pill"><div class="pill-dot"></div>vs AI</div>
+      </div>
+    </div>
+
+    <!-- CARD: GAMES SHOWCASE -->
+    <div class="card-body">
+
+      <!-- LIVE GAME PREVIEWS -->
+      <div class="section-label">🎮 যেসব গেম খেলবে <span class="live-badge"><span class="b-dot"></span>লাইভ প্রিভিউ</span></div>
+      <div class="previews">
+        <div class="preview p-ttt">
+          <div class="pv-stage">
+            <div class="mttt" id="pvTtt">
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="pv-name">Tic Tac Toe</div>
+        </div>
+        <div class="preview p-mem">
+          <div class="pv-stage">
+            <div class="mmem" id="pvMem">
+              <div class="mc up"></div><div class="mc up"></div><div class="mc up"></div><div class="mc up"></div>
+              <div class="mc up"></div><div class="mc up"></div><div class="mc up"></div><div class="mc up"></div>
+            </div>
+          </div>
+          <div class="pv-name">Memory Match</div>
+        </div>
+        <div class="preview p-snake">
+          <div class="pv-stage">
+            <div class="msnake" id="pvSnake"></div>
+          </div>
+          <div class="pv-name">Snake</div>
+        </div>
+      </div>
+
+      <!-- FEATURE CHIPS -->
+      <div class="feat-row">
+        <div class="feat"><span class="feat-ico">🤖</span> Unbeatable AI</div>
+        <div class="feat"><span class="feat-ico">🎨</span> ৩টি থিম</div>
+        <div class="feat"><span class="feat-ico">📴</span> অফলাইন</div>
+        <div class="feat"><span class="feat-ico">🏆</span> হাই স্কোর</div>
+      </div>
+
+      <!-- ROTATING TIPS -->
+      <div class="tip-bar">
+        <div class="tip-ico" id="tipIco">💡</div>
+        <div class="tip-text" id="tipText"><strong>Tic Tac Toe</strong> — AI mode-এ unbeatable bot এর সাথে লড়ো, ৫×৫ পর্যন্ত বোর্ড!</div>
+      </div>
+    </div>
+
+    <!-- CARD: LOGIN -->
+    <div class="card-body">
+
+      <label class="input-label" for="phone">📱 মোবাইল নম্বর দিয়ে শুরু করো</label>
+      <div class="phone-input-wrap">
+        <div class="phone-prefix">🇧🇩 +88</div>
+        <input type="tel" id="phone" placeholder="016XXXXXXXX" maxlength="11" inputmode="numeric" autocomplete="tel">
+      </div>
+
+      <div class="charge-box">
+        <div class="charge-icon">💳</div>
+        <div class="charge-text">
+          <strong>চার্জ তথ্য:</strong> প্রতিদিন মাত্র <strong>৫.৫৬ টাকা</strong> চার্জ (ভ্যাট + এসডি + এসসি সহ)। শুধুমাত্র রবি ও এয়ারটেল গ্রাহকদের জন্য। যেকোনো সময় Unsubscribe করা যায়।
+        </div>
+      </div>
+
+      <button class="btn" id="loginBtn" onclick="sendOtp()">
+        OTP পাঠাও <span class="btn-arrow">→</span>
+      </button>
+
+      <div class="loader" id="loader"><div class="spinner"></div>প্রসেস হচ্ছে, অপেক্ষা করো...</div>
+
+      <div class="footer-note">
+        লগইন করলে তুমি আমাদের <a href="#">সেবার শর্তাবলী</a> ও <a href="#">গোপনীয়তা নীতি</a>তে সম্মত হচ্ছ।
+      </div>
+    </div>
+
+  </div>
+
+<script>
+const CONFIG={
+  apiBase:"https://web.smartappbag.xyz/Game",   // তোমার PHP backend ফোল্ডার
+  onlyRobiAirtel:true  // শুধু রবি(016)/এয়ারটেল(018)। সব operator চাইলে false
+};
+const API=p=>(CONFIG.apiBase?CONFIG.apiBase.replace(/\/+$/,"")+"/":"")+p;
+function isValid(p){return CONFIG.onlyRobiAirtel?/^01(6|8)\d{8}$/.test(p):/^01[3-9]\d{8}$/.test(p);}
+
+async function sendOtp(){
+  const ph=document.getElementById("phone").value.trim();
+  const btn=document.getElementById("loginBtn"),loader=document.getElementById("loader");
+  if(!isValid(ph)){alert("সঠিক রবি বা এয়ারটেল নম্বর দাও।\nরবি: 016XXXXXXXX\nএয়ারটেল: 018XXXXXXXX");return;}
+  btn.disabled=true;loader.style.display="flex";
+  try{
+    // ১) subscription status চেক — already registered হলে সরাসরি গেম পেজে
+    const cr=await fetch(API("check_subscription.php"),{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams({user_mobile:ph})});
+    if(cr.status===200){
+      const cd=await cr.json();
+      if(cd?.subscriptionStatus?.toUpperCase()==="REGISTERED"){
+        localStorage.setItem("kickoff_phone",ph);
+        localStorage.setItem("kickoff_loggedIn","true");
+        window.location.href="game.html";return;
+      }
+    }
+    // ২) OTP পাঠাও → otp.html
+    const r=await fetch(API("send_otp.php"),{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams({user_mobile:ph})});
+    const d=await r.json();
+    if(d.success===true){
+      localStorage.setItem("kickoff_phone",ph);
+      localStorage.setItem("kickoff_ref",d.referenceNo);
+      window.location.href="otp.html";
+    }else if(d.statusCode==="E1351"||(d.message||"").toLowerCase().includes("already registered")){
+      localStorage.setItem("kickoff_phone",ph);
+      localStorage.setItem("kickoff_loggedIn","true");
+      window.location.href="game.html";
+    }else{
+      alert(d.message||"OTP পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করো।");
+    }
+  }catch(e){
+    alert("নেটওয়ার্ক সমস্যা! ইন্টারনেট সংযোগ চেক করে আবার চেষ্টা করো।");
+  }finally{
+    btn.disabled=false;loader.style.display="none";
+  }
+}
+const phoneEl=document.getElementById("phone");
+phoneEl.addEventListener("input",function(){this.value=this.value.replace(/[^0-9]/g,"")});
+phoneEl.addEventListener("keydown",function(e){if(e.key==="Enter")sendOtp()});
+
+/* ========== DYNAMIC LANDING ANIMATIONS ========== */
+
+// 1) Live Tic Tac Toe — auto plays a game in a loop
+(function(){
+  const cells=[...document.getElementById("pvTtt").children];
+  const wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  function reset(){cells.forEach(c=>{c.textContent="";c.className=""});}
+  function play(){
+    reset();
+    const order=[...Array(9).keys()].sort(()=>Math.random()-.5);
+    let i=0;
+    const timer=setInterval(()=>{
+      if(i>=order.length){clearInterval(timer);setTimeout(play,1400);return;}
+      const idx=order[i];
+      const mark=i%2===0?"x":"o";
+      cells[idx].textContent=mark==="x"?"X":"O";
+      cells[idx].className=mark;
+      i++;
+      const xs=cells.map((c,j)=>c.className==="x"?j:-1).filter(j=>j>=0);
+      const os=cells.map((c,j)=>c.className==="o"?j:-1).filter(j=>j>=0);
+      const won=wins.some(w=>w.every(p=>xs.includes(p)))||wins.some(w=>w.every(p=>os.includes(p)));
+      if(won){clearInterval(timer);setTimeout(play,1600);}
+    },420);
+  }
+  play();
+})();
+
+// 2) Live Memory Match — flips pairs in a loop
+(function(){
+  const cards=[...document.getElementById("pvMem").children];
+  const faces=["🦊","🐼","🦊","🐼","🐸","🦁","🐸","🦁"];
+  function loop(){
+    cards.forEach(c=>{c.classList.add("up");c.textContent=""});
+    const pairs=[[0,2],[1,3],[4,6],[5,7]];
+    let pi=0;
+    const timer=setInterval(()=>{
+      if(pi>=pairs.length){clearInterval(timer);setTimeout(loop,1200);return;}
+      const [a,b]=pairs[pi];
+      [a,b].forEach(idx=>{cards[idx].classList.remove("up");cards[idx].textContent=faces[idx]});
+      pi++;
+    },650);
+  }
+  loop();
+})();
+
+// 3) Live Snake — moves around the mini grid
+(function(){
+  const COLS=7,ROWS=5,host=document.getElementById("pvSnake");
+  const cells=[];
+  for(let i=0;i<COLS*ROWS;i++){const s=document.createElement("span");host.appendChild(s);cells.push(s);}
+  let snake=[10,9,8],dir=1,apple=25;
+  function draw(){
+    cells.forEach(c=>c.className="");
+    snake.forEach((p,i)=>cells[p].className=i===0?"h":"b");
+    cells[apple].className="a";
+  }
+  function newApple(){let p;do{p=Math.floor(Math.random()*COLS*ROWS)}while(snake.includes(p));apple=p;}
+  function step(){
+    const head=snake[0];let r=Math.floor(head/COLS),c=head%COLS;
+    const ar=Math.floor(apple/COLS),ac=apple%COLS;
+    if(c!==ac && Math.random()>.3)dir=ac>c?1:-1;
+    else if(r!==ar)dir=ar>r?COLS:-COLS;
+    let nr=r,nc=c;
+    if(dir===1)nc++;else if(dir===-1)nc--;else if(dir===COLS)nr++;else nr--;
+    if(nc<0||nc>=COLS||nr<0||nr>=ROWS){dir=1;return;}
+    const nhead=nr*COLS+nc;
+    if(snake.includes(nhead)){snake=[10,9,8];newApple();draw();return;}
+    snake.unshift(nhead);
+    if(nhead===apple)newApple();else snake.pop();
+    draw();
+  }
+  newApple();draw();
+  setInterval(step,360);
+})();
+
+// 4) Rotating tips
+const TIPS=[
+  {ico:"🤖",html:"<strong>Tic Tac Toe</strong> — AI mode-এ unbeatable bot এর সাথে লড়ো, ৫×৫ পর্যন্ত বোর্ড!"},
+  {ico:"🧠",html:"<strong>Memory Match</strong> — ৩টি লেভেলে স্মৃতিশক্তি যাচাই করো, কম move-এ জেতো।"},
+  {ico:"🐍",html:"<strong>Snake</strong> — বোনাস ফল ধরে high score গড়ো, wall on/off করা যায়।"},
+  {ico:"🎨",html:"<strong>৩টি থিম</strong> — Neon, Pastel আর Retro, এক ট্যাপে বদলাও।"},
+  {ico:"📴",html:"<strong>অফলাইন</strong> — ইন্টারনেট ছাড়াও খেলা যায়, কোনো বিজ্ঞাপন নেই।"},
+  {ico:"🏆",html:"<strong>High Score</strong> — নিজের রেকর্ড ভাঙো, প্রতিদিন নতুন চ্যালেঞ্জ।"}
+];
+let tipIdx=0;
+const tipText=document.getElementById("tipText"),tipIco=document.getElementById("tipIco");
+setInterval(()=>{
+  tipIdx=(tipIdx+1)%TIPS.length;
+  tipText.style.animation="none";void tipText.offsetWidth;tipText.style.animation="tipIn .5s ease";
+  tipText.innerHTML=TIPS[tipIdx].html;
+  tipIco.textContent=TIPS[tipIdx].ico;
+},3200);
+</script>
+</body>
+</html>

@@ -10,12 +10,50 @@
 <body>
     <nav class="navbar">
         <div class="logo">খেলাঘর 🎮</div>
+        <div class="nav-links">
+            <a href="auth/login.html" class="nav-btn subscribe-btn" id="subscribeBtn">সাবস্ক্রাইব করুন</a>
+            <a href="#" class="nav-btn faq-btn" id="faqBtn">FAQ</a>
+            
+            <div class="profile-container" id="profileContainer" style="display: none;">
+                <div class="profile-icon" id="profileIcon">👤</div>
+                <div class="profile-dropdown" id="profileDropdown" style="display: none;">
+                    <div class="profile-phone" id="profilePhone"></div>
+                    <button class="unsubscribe-btn" id="unsubscribeBtn">আনসাবস্ক্রাইব করুন</button>
+                </div>
+            </div>
+        </div>
     </nav>
+
+    <!-- Custom Confirm Modal -->
+    <div class="custom-modal-overlay" id="customModalOverlay" style="display: none;">
+        <div class="custom-modal">
+            <h3 id="customModalTitle">নিশ্চিত করুন</h3>
+            <p id="customModalText">আপনি কি নিশ্চিত যে আপনি আনসাবস্ক্রাইব করতে চান?</p>
+            <div class="custom-modal-actions" id="customModalActions">
+                <button class="btn-cancel" id="customModalCancel">না</button>
+                <button class="btn-confirm" id="customModalConfirm">হ্যাঁ</button>
+            </div>
+        </div>
+    </div>
     
     <header class="hero">
         <h1>আপনার প্রিয় গেমগুলো এক জায়গায়</h1>
         <p>ব্রাউজারেই খেলুন দারুণ সব থ্রিডি এবং টুডি গেম, কোনো ডাউনলোডের ঝামেলা ছাড়াই!</p>
     </header>
+
+    <!-- FEATURE CHIPS -->
+    <div class="feat-row">
+        <div class="feat"><span class="feat-ico">🤖</span> মজার ಗেমপ্লে</div>
+        <div class="feat"><span class="feat-ico">🎨</span> দারুণ গ্রাফিক্স</div>
+        <div class="feat"><span class="feat-ico">📴</span> ব্রাউজারে খেলুন</div>
+        <div class="feat"><span class="feat-ico">🏆</span> হাই স্কোর</div>
+    </div>
+
+    <!-- ROTATING TIPS -->
+    <div class="tip-bar">
+        <div class="tip-ico" id="tipIco">💡</div>
+        <div class="tip-text" id="tipText"><strong>খেলাঘর</strong> — সেরা গেমগুলো খেলুন কোনো ডাউনলোড ছাড়াই!</div>
+    </div>
 
     <main class="games-container">
         <!-- Game Card 1 -->
@@ -66,5 +104,158 @@
             </div>
         </a>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            
+            // Hide subscribe/faq buttons and show profile if logged in
+            if (isLoggedIn === 'true') {
+                const subBtn = document.getElementById('subscribeBtn');
+                const faqBtn = document.getElementById('faqBtn');
+                const profileContainer = document.getElementById('profileContainer');
+                const profilePhone = document.getElementById('profilePhone');
+                
+                if (subBtn) subBtn.style.display = 'none';
+                if (faqBtn) faqBtn.style.display = 'none';
+                if (profileContainer) {
+                    profileContainer.style.display = 'block';
+                    profilePhone.innerText = localStorage.getItem('phone') || 'Unknown Number';
+                }
+            }
+
+            // Profile dropdown toggle
+            const profileIcon = document.getElementById('profileIcon');
+            const profileDropdown = document.getElementById('profileDropdown');
+            if (profileIcon && profileDropdown) {
+                profileIcon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    profileDropdown.style.display = profileDropdown.style.display === 'none' ? 'block' : 'none';
+                });
+                
+                // Hide dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!profileDropdown.contains(e.target) && e.target !== profileIcon) {
+                        profileDropdown.style.display = 'none';
+                    }
+                });
+            }
+
+            // Custom Modal Logic
+            const modalOverlay = document.getElementById('customModalOverlay');
+            const modalTitle = document.getElementById('customModalTitle');
+            const modalText = document.getElementById('customModalText');
+            const btnCancel = document.getElementById('customModalCancel');
+            const btnConfirm = document.getElementById('customModalConfirm');
+            
+            function showCustomModal(title, text, showCancel, onConfirm) {
+                modalTitle.innerText = title;
+                modalText.innerText = text;
+                
+                if (showCancel) {
+                    btnCancel.style.display = 'inline-block';
+                    btnCancel.onclick = () => {
+                        modalOverlay.style.display = 'none';
+                    };
+                } else {
+                    btnCancel.style.display = 'none';
+                }
+                
+                btnConfirm.onclick = () => {
+                    modalOverlay.style.display = 'none';
+                    if (onConfirm) onConfirm();
+                };
+                
+                modalOverlay.style.display = 'flex';
+            }
+
+            // Unsubscribe action
+            const unsubscribeBtn = document.getElementById('unsubscribeBtn');
+            if (unsubscribeBtn) {
+                unsubscribeBtn.addEventListener('click', () => {
+                    const phone = localStorage.getItem('phone');
+                    if (!phone) return;
+
+                    showCustomModal(
+                        'নিশ্চিত করুন',
+                        'আপনি কি নিশ্চিত যে আপনি আনসাবস্ক্রাইব করতে চান?',
+                        true,
+                        async () => {
+                            // Bypass for demo number
+                            if (phone === '01700000000') {
+                                localStorage.removeItem('isLoggedIn');
+                                localStorage.removeItem('phone');
+                                showCustomModal('সফল!', 'আনসাবস্ক্রাইব সফল হয়েছে।', false, () => {
+                                    window.location.reload();
+                                });
+                                return;
+                            }
+
+                            unsubscribeBtn.innerText = 'অপেক্ষা করুন...';
+                            unsubscribeBtn.disabled = true;
+
+                            try {
+                                const res = await fetch('auth/unsubscribe.php', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                    body: new URLSearchParams({ user_mobile: phone })
+                                });
+                                const data = await res.json();
+                                
+                                if (data.success || data.subscriptionStatus === 'UNREGISTERED') {
+                                    localStorage.removeItem('isLoggedIn');
+                                    localStorage.removeItem('phone');
+                                    showCustomModal('সফল!', 'আনসাবস্ক্রাইব সফল হয়েছে।', false, () => {
+                                        window.location.reload();
+                                    });
+                                } else {
+                                    showCustomModal('ব্যর্থ!', data.error || 'আনসাবস্ক্রাইব করতে ব্যর্থ হয়েছে।', false);
+                                    unsubscribeBtn.innerText = 'আনসাবস্ক্রাইব করুন';
+                                    unsubscribeBtn.disabled = false;
+                                }
+                            } catch (e) {
+                                showCustomModal('সমস্যা!', 'নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।', false);
+                                unsubscribeBtn.innerText = 'আনসাবস্ক্রাইব করুন';
+                                unsubscribeBtn.disabled = false;
+                            }
+                        }
+                    );
+                });
+            }
+
+            const gameCards = document.querySelectorAll('.game-card');
+            gameCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (isLoggedIn !== 'true') {
+                        e.preventDefault();
+                        window.location.href = 'auth/login.html';
+                    }
+                });
+            });
+
+            // Rotating tips logic
+            const TIPS = [
+                {ico:"🏃",html:"<strong>গ্রামের দৌড় 3D</strong> — কিউট বিড়াল নিয়ে গ্রামের রাস্তায় দৌড়াও, বাধা পেরিয়ে স্কোর গড়ো!"},
+                {ico:"🎲",html:"<strong>লুডু মাস্টার</strong> — বন্ধুদের সাথে লোকাল মাল্টিপ্লেয়ারে লুডু খেলার দারুণ মজা।"},
+                {ico:"🚀",html:"<strong>স্পেস শুটার</strong> — মহাকাশে এলিয়েনদের সাথে যুদ্ধ করো, বিশ্ব বাঁচাও!"},
+                {ico:"🏆",html:"<strong>হাই স্কোর</strong> — প্রতিদিন নতুন রেকর্ড গড়ো আর সবার সেরা হও।"},
+                {ico:"📴",html:"<strong>অফলাইন</strong> — ইন্টারনেট ছাড়াও ব্রাউজারে সহজে খেলা যায়।"}
+            ];
+            let tipIdx = 0;
+            const tipText = document.getElementById("tipText");
+            const tipIco = document.getElementById("tipIco");
+            
+            if (tipText && tipIco) {
+                setInterval(() => {
+                    tipIdx = (tipIdx + 1) % TIPS.length;
+                    tipText.style.animation = "none";
+                    void tipText.offsetWidth; // trigger reflow
+                    tipText.style.animation = "tipIn 0.5s ease";
+                    tipText.innerHTML = TIPS[tipIdx].html;
+                    tipIco.textContent = TIPS[tipIdx].ico;
+                }, 3200);
+            }
+        });
+    </script>
 </body>
 </html>

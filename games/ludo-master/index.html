@@ -14,7 +14,26 @@
             <h1>লুডু মাস্টার 🎲</h1>
         </header>
 
-        <div class="game-area">
+        <!-- Start Menu Modal -->
+        <div id="start-menu" class="mode-modal">
+            <div class="mode-modal-content">
+                <h2>গেম মোড নির্বাচন করুন</h2>
+                <div class="mode-options">
+                    <button id="btn-manual" class="mode-btn">
+                        <span class="mode-icon">👥</span>
+                        <strong>ম্যানুয়াল</strong>
+                        <span>৪ জন মানুষ খেলবে</span>
+                    </button>
+                    <button id="btn-robot" class="mode-btn">
+                        <span class="mode-icon">🤖</span>
+                        <strong>রোবট (AI)</strong>
+                        <span>১ জন মানুষ বনাম ৩ জন বট</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-area" id="game-area" style="display: none;">
             <!-- Top Left -->
             <div class="player-panel green-panel" id="panel-green">
                 <div class="dice-container-3d" id="dice-wrap-green">

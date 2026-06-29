@@ -1,8 +1,16 @@
 const players = ['green', 'yellow', 'blue', 'red'];
+let activePlayers = ['green', 'yellow', 'blue', 'red'];
 const playerNames = { 'green': 'সবুজ', 'yellow': 'হলুদ', 'blue': 'নীল', 'red': 'লাল' };
 
 let currentPlayerIndex = 0;
-let gameState = 'waiting_for_roll'; // waiting_for_roll, rolling, waiting_for_move, moving
+let gameState = 'waiting_for_mode'; // waiting_for_mode, waiting_for_roll, rolling, waiting_for_move, moving
+
+const isBot = {
+    'green': false,
+    'yellow': false,
+    'blue': false,
+    'red': false
+};
 
 const tokenPositions = {
     'green': [-1, -1, -1, -1],
@@ -166,7 +174,7 @@ function updateAllTokenPositions() {
 
     tokenMeta.forEach(meta => {
         let el = document.getElementById(`${meta.color}-${meta.i}`);
-        if (meta.pos[0] === -100) {
+        if (meta.pos[0] === -100 || !activePlayers.includes(meta.color)) {
             el.style.display = 'none';
         } else {
             el.style.display = 'block';
@@ -188,10 +196,22 @@ function updateTurnVisuals() {
             rollBtns[color].classList.remove('active', 'has-result');
         }
     });
+
+    let currentColor = players[currentPlayerIndex];
+    if (isBot[currentColor]) {
+        // Auto roll for bot after short delay
+        setTimeout(() => {
+            if (gameState === 'waiting_for_roll') {
+                rollDice(currentColor);
+            }
+        }, 800);
+    }
 }
 
 function switchTurn() {
-    currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+    do {
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+    } while (!activePlayers.includes(players[currentPlayerIndex]));
     updateTurnVisuals();
 }
 
@@ -336,15 +356,92 @@ function rollDice(color) {
         if (validMoves.length === 0) {
             setTimeout(switchTurn, 1000);
         } else {
-            setupTokenClicks(color, validMoves, diceValue);
+            if (isBot[color]) {
+                // AI picks move
+                setTimeout(() => botMove(color, validMoves, diceValue), 600);
+            } else {
+                setupTokenClicks(color, validMoves, diceValue);
+            }
         }
     }, 1200); // matches CSS animation duration
 }
 
+function botMove(color, validMoves, diceValue) {
+    let bestMove = validMoves[0];
+    let bestScore = -1;
+
+    validMoves.forEach(i => {
+        let currentPos = tokenPositions[color][i];
+        let targetPos = currentPos === -1 ? 0 : currentPos + diceValue;
+        let score = 0;
+
+        if (targetPos === 56) score = 100; // Priority 1: Home
+        else if (currentPos === -1) score = 80; // Priority 2: Deploy
+        else {
+            let targetCell = getCell(color, targetPos);
+            if (targetCell) {
+                // Priority 3: Capture
+                if (!isSafeZone(targetCell[0], targetCell[1])) {
+                    let canCapture = false;
+                    players.forEach(oppColor => {
+                        if (oppColor !== color) {
+                            tokenPositions[oppColor].forEach(oppPos => {
+                                if (oppPos >= 0 && oppPos <= 50) {
+                                    let oppCell = getCell(oppColor, oppPos);
+                                    if (oppCell[0] === targetCell[0] && oppCell[1] === targetCell[1]) {
+                                        canCapture = true;
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    if (canCapture) score = 90;
+                }
+            }
+            if (score === 0) {
+                // Priority 4: Advance furthest
+                score = currentPos;
+            }
+        }
+
+        if (score > bestScore) {
+            bestScore = score;
+            bestMove = i;
+        }
+    });
+
+    moveToken(color, bestMove, diceValue);
+}
+
 players.forEach(color => {
-    rollBtns[color].addEventListener('click', () => rollDice(color));
+    rollBtns[color].addEventListener('click', () => {
+        if (!isBot[color]) rollDice(color);
+    });
 });
 
 createTokens();
-updateTurnVisuals();
 dice3D['green'].style.transform = 'translateZ(-30px) rotateX(0deg) rotateY(0deg)';
+
+// Mode selection logic
+document.getElementById('btn-manual').onclick = () => {
+    activePlayers = ['green', 'yellow', 'blue', 'red'];
+    document.getElementById('start-menu').style.display = 'none';
+    document.getElementById('game-area').style.display = 'block';
+    updateTurnVisuals();
+};
+
+document.getElementById('btn-robot').onclick = () => {
+    activePlayers = ['green', 'blue'];
+    isBot['blue'] = true;
+    
+    // Hide inactive panels
+    document.getElementById('panel-yellow').style.visibility = 'hidden';
+    document.getElementById('panel-red').style.visibility = 'hidden';
+    
+    // Update tokens immediately
+    updateAllTokenPositions();
+    
+    document.getElementById('start-menu').style.display = 'none';
+    document.getElementById('game-area').style.display = 'block';
+    updateTurnVisuals();
+};

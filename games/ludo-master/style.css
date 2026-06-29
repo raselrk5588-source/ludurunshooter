@@ -38,8 +38,8 @@ h1 {
 .game-area {
     position: relative;
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 400px;
+    margin: 90px auto;
     aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
@@ -110,10 +110,10 @@ h1 {
     transform: scale(0.95);
 }
 
-.green-panel { top: -20px; left: -20px; background-color: #30a241; }
-.yellow-panel { top: -20px; right: -20px; background-color: #fbd109; }
-.red-panel { bottom: -20px; left: -20px; background-color: #e82121; }
-.blue-panel { bottom: -20px; right: -20px; background-color: #2c51b6; }
+.green-panel { top: -85px; left: 0px; background-color: #30a241; }
+.yellow-panel { top: -85px; right: 0px; background-color: #fbd109; }
+.red-panel { bottom: -85px; left: 0px; background-color: #e82121; }
+.blue-panel { bottom: -85px; right: 0px; background-color: #2c51b6; }
 
 /* Inactive panels */
 .player-panel.disabled {
@@ -227,6 +227,72 @@ h1 {
     to { transform: scale(1.1) translateY(-20px); }
 }
 
+/* Mode Selection Modal */
+.mode-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.mode-modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    max-width: 400px;
+    width: 90%;
+}
+
+.mode-modal-content h2 {
+    margin-bottom: 25px;
+    color: #2c3e50;
+}
+
+.mode-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mode-btn {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+    border-color: #ced4da;
+}
+
+.mode-icon {
+    font-size: 32px;
+}
+
+.mode-btn strong {
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.mode-btn span:last-child {
+    font-size: 14px;
+    color: #6c757d;
+}
+
 .confetti {
     position: fixed;
     top: -20px;
@@ -241,13 +307,13 @@ h1 {
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
     header { flex-direction: column; gap: 15px; }
-    .game-area { max-width: 100%; margin-top: 20px; }
-    .board-container { max-width: 80%; }
+    .game-area { max-width: 85%; margin: 80px auto 100px auto; }
+    .board-container { max-width: 100%; }
     .player-panel { width: 65px; height: 65px; }
-    .green-panel { top: -10px; left: -10px; bottom: auto; right: auto; }
-    .yellow-panel { top: -10px; right: -10px; bottom: auto; left: auto; }
-    .red-panel { bottom: -10px; left: -10px; top: auto; right: auto; }
-    .blue-panel { bottom: -10px; right: -10px; top: auto; left: auto; }
+    .green-panel { top: -75px; left: 0px; bottom: auto; right: auto; }
+    .yellow-panel { top: -75px; right: 0px; bottom: auto; left: auto; }
+    .red-panel { bottom: -75px; left: 0px; top: auto; right: auto; }
+    .blue-panel { bottom: -75px; right: 0px; top: auto; left: auto; }
     
     .dice-container-3d, .dice-face { width: 50px; height: 50px; }
     .dice-3d { transform: translateZ(-25px); }
