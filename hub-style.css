@@ -365,6 +365,17 @@ body {
     opacity: 1;
 }
 
+/* Cat Animation */
+.cat-icon {
+    font-size: 80px;
+    animation: catRun 0.8s infinite alternate ease-in-out;
+}
+
+@keyframes catRun {
+    0% { transform: translateY(0) translateX(-5px) rotate(-5deg); filter: drop-shadow(0 10px 5px rgba(0,0,0,0.3)); }
+    100% { transform: translateY(-15px) translateX(5px) rotate(5deg); filter: drop-shadow(0 20px 10px rgba(0,0,0,0.15)); }
+}
+
 /* Dice Animation */
 .dice-icon {
     font-size: 80px;
