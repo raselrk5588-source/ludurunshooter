@@ -239,6 +239,26 @@ h1 {
     backdrop-filter: blur(5px);
 }
 
+.modal-back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    color: #fff;
+    background: rgba(231, 76, 60, 0.8);
+    backdrop-filter: blur(5px);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.modal-back-btn:hover {
+    background: #e74c3c;
+    transform: scale(1.05);
+}
+
 .mode-modal-content {
     background: white;
     padding: 30px;

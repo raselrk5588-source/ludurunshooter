@@ -1,10 +1,10 @@
 :root {
-    --bg-color: #0f172a;
-    --card-bg: #1e293b;
-    --primary: #6366f1;
-    --primary-light: #818cf8;
-    --text-main: #ffffff;
-    --text-muted: #cbd5e1;
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --primary: #e74c3c;
+    --primary-light: #c0392b;
+    --text-main: #2c3e50;
+    --text-muted: #7f8c8d;
 }
 
 body {
@@ -34,7 +34,7 @@ body {
     border-radius: 16px;
     padding: 40px 25px 30px 25px;
     width: 100%;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     text-align: center;
     box-sizing: border-box;
     position: relative;
@@ -69,8 +69,8 @@ body {
 }
 
 .input-group {
-    background: #334155;
-    border: 1px solid transparent;
+    background: #f8f9fa;
+    border: 1px solid #ced4da;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -95,7 +95,7 @@ body {
 }
 
 .input-group input::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+    color: #adb5bd;
 }
 
 .hidden {

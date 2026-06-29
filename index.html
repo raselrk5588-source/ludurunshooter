@@ -36,6 +36,42 @@
         </div>
     </div>
     
+    <!-- FAQ Modal -->
+    <div class="custom-modal-overlay" id="faqModalOverlay" style="display: none;">
+        <div class="custom-modal faq-modal">
+            <h3>হেল্প এবং FAQ</h3>
+            
+            <div class="faq-content">
+                <div class="faq-section">
+                    <h4>কীভাবে সাবস্ক্রাইব করবেন?</h4>
+                    <p>১. অ্যাপের যেকোনো ফিচারে ক্লিক করলে লগইন স্ক্রিন আসবে।</p>
+                    <p>২. সেখানে আপনার রবি বা এয়ারটেল নম্বর দিন।</p>
+                    <p>৩. মোবাইলে আসা OTP কোডটি দিয়ে ভেরিফাই করলেই আপনার সাবস্ক্রিপশন চালু হয়ে যাবে।</p>
+                    <p class="charge-info">সাবস্ক্রিপশন চার্জ: ৪ টাকা/দিন (Vat+SC+SD)।</p>
+                </div>
+                
+                <div class="faq-section">
+                    <h4>কীভাবে আনসাবস্ক্রাইব করবেন?</h4>
+                    <p>১. উপরে ডানদিকের "প্রোফাইল" (User) আইকনে ক্লিক করুন।</p>
+                    <p>২. "আনসাবস্ক্রাইব করুন" বাটনে ক্লিক করে নিশ্চিত করুন।</p>
+                    <p>৩. সাথে সাথে আপনার সাবস্ক্রিপশন বাতিল হয়ে যাবে এবং কোনো চার্জ কাটা হবে না।</p>
+                </div>
+
+                <div class="faq-section">
+                    <h4>সচরাচর জিজ্ঞাসা (FAQ)</h4>
+                    <p><strong>প্রশ্ন: অ্যাপটি কাদের জন্য?</strong></p>
+                    <p>উত্তর: এই 'খেলাঘর' প্ল্যাটফর্মটি সব বয়সী মানুষদের জন্য তৈরি করা হয়েছে, যেখানে সাবস্ক্রিপশনের মাধ্যমে আপনারা দারুণ সব থ্রিডি এবং টুডি গেম কোনো ডাউনলোড ছাড়াই সরাসরি উপভোগ করতে পারবেন।</p>
+                    
+                    <p class="mt-2"><strong>প্রশ্ন: আমার নম্বর কি নিরাপদ?</strong></p>
+                    <p>উত্তর: হ্যাঁ, আমরা BDApps এর অফিসিয়াল সিকিউর API ব্যবহার করি। আপনার নম্বর সম্পূর্ণ নিরাপদ।</p>
+                </div>
+            </div>
+
+            <div class="custom-modal-actions mt-3">
+                <button class="btn-confirm" id="closeFaqBtn">বন্ধ করুন</button>
+            </div>
+        </div>
+    </div>
     <header class="hero">
         <h1>আপনার প্রিয় গেমগুলো এক জায়গায়</h1>
         <p>ব্রাউজারেই খেলুন দারুণ সব থ্রিডি এবং টুডি গেম, কোনো ডাউনলোডের ঝামেলা ছাড়াই!</p>
@@ -67,7 +103,7 @@
                 </div>
             </div>
             <div class="game-info">
-                <h3>গ্রামের দৌড় 3D</h3>
+                <h3>বিড়াল দৌড় 3D</h3>
                 <p>একটি দারুণ থ্রিডি এন্ডলেস রানার গেম যেখানে একটি কিউট বিড়াল গ্রামের রাস্তায় দৌড়ায়।</p>
             </div>
         </a>
@@ -140,6 +176,26 @@
                     }
                 });
             }
+
+            // FAQ Modal Logic
+            const faqBtnLink = document.getElementById('faqBtn');
+            const faqModalOverlay = document.getElementById('faqModalOverlay');
+            const closeFaqBtn = document.getElementById('closeFaqBtn');
+            
+            if (faqBtnLink && faqModalOverlay) {
+                faqBtnLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    faqModalOverlay.style.display = 'flex';
+                });
+            }
+            if (closeFaqBtn) {
+                closeFaqBtn.addEventListener('click', () => {
+                    faqModalOverlay.style.display = 'none';
+                });
+            }
+            faqModalOverlay.addEventListener('click', (e) => {
+                if (e.target === faqModalOverlay) faqModalOverlay.style.display = 'none';
+            });
 
             // Custom Modal Logic
             const modalOverlay = document.getElementById('customModalOverlay');
@@ -235,7 +291,7 @@
 
             // Rotating tips logic
             const TIPS = [
-                {ico:"🏃",html:"<strong>গ্রামের দৌড় 3D</strong> — কিউট বিড়াল নিয়ে গ্রামের রাস্তায় দৌড়াও, বাধা পেরিয়ে স্কোর গড়ো!"},
+                {ico:"🏃",html:"<strong>বিড়াল দৌড় 3D</strong> — কিউট বিড়াল নিয়ে গ্রামের রাস্তায় দৌড়াও, বাধা পেরিয়ে স্কোর গড়ো!"},
                 {ico:"🎲",html:"<strong>লুডু মাস্টার</strong> — বন্ধুদের সাথে লোকাল মাল্টিপ্লেয়ারে লুডু খেলার দারুণ মজা।"},
                 {ico:"🚀",html:"<strong>স্পেস শুটার</strong> — মহাকাশে এলিয়েনদের সাথে যুদ্ধ করো, বিশ্ব বাঁচাও!"},
                 {ico:"🏆",html:"<strong>হাই স্কোর</strong> — প্রতিদিন নতুন রেকর্ড গড়ো আর সবার সেরা হও।"},
