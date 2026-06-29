@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>লগইন করুন</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>লগইন করুন</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <a href="../index.html" class="close-btn"><i class="fa-solid fa-xmark"></i></a>
-            
-            <h1 class="logo">লগইন করুন</h1>
-            <p class="subtitle">সাবস্ক্রিপশন করতে আপনার রবি/এয়ারটেল নম্বর দিন। চার্জ:<br>২.৭৮ টাকা/দিন (Vat+SC+SD সহ)</p>
-            
-            <div class="input-group" id="phone-group">
-                <i class="fa-solid fa-phone"></i>
-                <input type="tel" id="phone-input" placeholder="01XXXXXXXXX" required>
-            </div>
+  <div class="login-container">
+    <div class="login-card">
+      <a href="../index.html" class="close-btn"><i class="fa-solid fa-xmark"></i></a>
 
-            <button id="auth-btn" class="primary-btn" onclick="handleLogin()">পরবর্তী ধাপ</button>
-            <div id="loader" style="display:none; color:#cbd5e1; margin-top:10px; font-size:14px;">অপেক্ষা করুন...</div>
-        </div>
+      <h1 class="logo">লগইন করুন</h1>
+      <p class="subtitle">সাবস্ক্রিপশন করতে আপনার রবি/এয়ারটেল নম্বর দিন। চার্জ:<br>৪ টাকা/দিন (Vat+SC+SD)</p>
+
+      <div class="input-group" id="phone-group">
+        <i class="fa-solid fa-phone"></i>
+        <input type="tel" id="phone-input" placeholder="01XXXXXXXXX" required>
+      </div>
+
+      <button id="auth-btn" class="primary-btn" onclick="handleLogin()">পরবর্তী ধাপ</button>
+      <div id="loader" style="display:none; color:#cbd5e1; margin-top:10px; font-size:14px;">অপেক্ষা করুন...</div>
     </div>
+  </div>
 
-    <script>
+  <script>
     async function handleLogin() {
       const phone = document.getElementById("phone-input").value.trim();
       const btn = document.getElementById("auth-btn");
@@ -73,6 +75,7 @@
         loader.style.display = "none";
       }
     }
-    </script>
+  </script>
 </body>
+
 </html>
