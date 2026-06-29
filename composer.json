@@ -1,7 +1,3 @@
 {
-    "description": "Khelaghor Web Game Portal",
-    "require": {
-        "php": "^7.4 || ^8.0 || ^8.1 || ^8.2",
-        "ext-curl": "*"
-    }
+    "description": "Khelaghor Web Game Portal"
 }
